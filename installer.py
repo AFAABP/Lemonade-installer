@@ -296,9 +296,14 @@ class Installer(QWidget):
                 # Remove the now-empty nested directory
                 shutil.rmtree(nested_dir_path)
 
+            # Github info
+            release_api_url = "https://api.github.com/repos/Lemonade-emu/Lemonade-installer/releases"
+            dest_path = os.path.join(os.environ['LOCALAPPDATA'], 'Lemonade', 'uninstaller.exe')
+
             # Set the progress bar to 100% and call installation_complete
             self.extractionProgressBar.setValue(100)
             executable_path = os.path.join(os.environ['LOCALAPPDATA'], 'Lemonade', 'lemonade-qt.exe')
+            self.download_uninstaller(release_api_url, dest_path)
             self.add_to_programs_list(executable_path)
             self.installation_complete()
         except Exception as e:
@@ -311,6 +316,38 @@ class Installer(QWidget):
         if self.startMenuShortcutCheckbox.isChecked():
             self.create_start_menu_shortcut(executable_path)
         self.layout.setCurrentIndex(self.layout.indexOf(self.finishPage))  # Switch to finish page
+
+    def download_uninstaller(self, release_api_url, dest_path):
+        try:
+            logging.info("Starting to download uninstaller.")
+            response = requests.get(release_api_url)
+            response.raise_for_status()  # This will raise an exception for HTTP errors
+            releases = response.json()
+            found = False
+            for release in releases:
+                for asset in release.get('assets', []):
+                    if asset['name'] == "uninstaller.exe":
+                        uninstaller_url = asset['browser_download_url']
+                        self.download_file(uninstaller_url, dest_path)
+                        found = True
+                        logging.info("Uninstaller downloaded successfully.")
+                        break
+                if found:
+                    break
+            if not found:
+                logging.error("Uninstaller not found in any release.")
+        except requests.RequestException as e:
+            logging.error(f"Error downloading uninstaller: {e}")
+
+    def download_file(self, url, dest_path):
+        try:
+            with requests.get(url, stream=True) as r:
+                r.raise_for_status()
+                with open(dest_path, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=8192):
+                        f.write(chunk)
+        except requests.RequestException as e:
+            print(f"Error saving the uninstaller: {e}")
 
     def add_to_programs_list(self, executable_path):
         """
