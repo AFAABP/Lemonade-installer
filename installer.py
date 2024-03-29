@@ -190,7 +190,7 @@ class Installer(QWidget):
         elif selection == "Latest Release":
             url = self.get_latest_release_url()
             if not url:
-                QMessageBox.critical(self, "Error", "Repo ULR was not found.")
+                QMessageBox.critical(self, "Error", "Repo URL was not found.")
                 return
         temp_file = tempfile.NamedTemporaryFile(delete=False).name
         self.download_thread = DownloadThread(url, temp_file)
@@ -210,7 +210,7 @@ class Installer(QWidget):
             for release in releases:
                 assets = release.get('assets', [])
                 for asset in assets:
-                    if "lemonade-windows-msvc" in asset['name']:
+                    if "windows-msvc" in asset['name']:
                         return asset['browser_download_url']
             QMessageBox.critical(self, "Error", "No suitable release found.")
             return None
