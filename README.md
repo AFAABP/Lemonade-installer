@@ -3,4 +3,4 @@
 ## How to build?
 
 - Open a powershell terminal on the working direcotry
-- - Run build.ps1
+- Run build.ps1
