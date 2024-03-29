@@ -68,7 +68,7 @@ class Installer(QWidget):
         disclaimerLayout = QVBoxLayout()
         disclaimerGroup = QGroupBox("")
         disclaimerGroupLayout = QVBoxLayout()
-        disclaimerLabel = QLabel('[<b>Lemonade is still on the early alpha stage, Dont expect big noticible chnages in performance yet/]')
+        disclaimerLabel = QLabel('<b>Lemonade is still on the early alpha stage, to update the emulator run the installer again')
         disclaimerGroupLayout.addWidget(disclaimerLabel)
         disclaimerGroupLayout.addWidget(disclaimerLabel)
         disclaimerGroup.setLayout(disclaimerGroupLayout)
