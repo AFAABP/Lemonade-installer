@@ -1,3 +1,13 @@
+<h1 align="center">
+    <a href="https://github.com/Gamer64ytb/Lemonade" target="_blank">
+        <img height="60%" width="60%" src="https://github.com/Gamer64ytb/Lemonade/blob/master/assets/Lemonade.png"><br>
+    </a>
+    <a href="https://discord.gg/NVTYcV4v2Q" target="_blank">
+        <img src="https://dcbadge.vercel.app/api/server/NVTYcV4v2Q">
+    </a>
+</h1>
+
+
 # Lemoande installer made in python only for the Windows paltform
 
 ## How to build?
