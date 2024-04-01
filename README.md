@@ -8,7 +8,7 @@
 </h1>
 
 
-# Lemoande installer made in python only for the Windows paltform
+# Lemonade installer made in python only for the Windows paltform
 
 ## How to build?
 
